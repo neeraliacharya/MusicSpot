@@ -1,0 +1,133 @@
+<!Doctype html>
+<html>
+<head><title></title>
+<style>
+
+body {
+	margin: 0;
+	font-family: 'David Libre', serif;
+	letter-spacing: 0.5px;
+}
+
+#cover {
+	height: 100%;
+	width: 100%;
+	background-image: url('images/bg_login.jpg');
+    /*filter: blur(1px);*/
+	background-size: 100%;
+	position: fixed;
+	z-index: 1;
+}
+#main {
+	z-index:9999;
+	background-color: #000000;
+	position: fixed;
+	/*opacity: 0.5;*/
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+#main #div-login {
+	/*border: 2px solid #ffffff;*/
+	position: fixed;
+ 	left:0;
+ 	right:0;
+ 	top:0;
+ 	bottom:0;
+    margin:auto;
+    padding: 12px;
+    padding-left: 20px;
+    border-radius: 5px;
+	height: 300px;
+	width: 300px;
+	/* max-width: 600px; */
+	/*background-color: rgb(211, 69, 55);*/
+	/*margin: 0 auto;*/
+	/*vertical-align: center;*/
+	/*float: center;*/
+}
+#main #title {
+	color: #ffffff;
+	text-align: center;
+	font-size: 30px;
+}
+
+#main #user-id {
+	background: url(images/account-circle.png) no-repeat scroll 7px 7px;
+}
+#main #pwd {
+	background: url(images/textbox-password.png) no-repeat scroll 7px 7px;
+}
+#main #user-id, #main #pwd {
+	color: #ffffff;
+	/*border-bottom: 2px solid black;*/
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	text-color: black;
+	padding: 5px;
+	background-color: transparent;
+	border-radius: 2px solid;
+	padding-left:45px;
+	height: 30px;
+	font-size: 15px;
+}
+#main #user-uid, #main #pwd, #main #login-btn {
+	margin: 5px;
+}
+
+#forgot-pwd {
+    color: royalblue;
+	text-decoration: underline;
+}
+#forgot-pwd:hover {
+	color: white;
+	align: center;
+}
+#login-btn {
+	height: 40px;
+	width: 100px;
+	border: 1px solid black;
+	border-radius: 10px;
+	font-size: 15px;
+	/*margin-left: 40px ! important;*/
+}
+#forgot-pwd {
+
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ffffff;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #ffffff;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #ffffff;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #ffffff;
+}
+
+</style>
+</head>
+<body>
+<div id="cover">
+
+	<div id="main">
+			<div style="text-align: center;margin-top: 200px; color:#ffffff;">
+					<p style="font-size: 40px;">Welcome to MusicSpot</p>
+				</div>
+			<div id="div-login" style="color:#ffffff;font-size: 20px;letter-spacing: 1px; font-weight: 00px;">
+
+
+			<div style="height: 20px;margin-top:150px; min-width:200px;padding: 20px;background-color:#1ed35e;text-align: center;">
+				<a style="text-decoration: none;color:#ffffff" href="/signup">Login with spotify</a>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

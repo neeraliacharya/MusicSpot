@@ -1,0 +1,470 @@
+<!DOCTYPE html>  
+<html lang="en">  
+  
+<head>  
+    <title>  
+          
+    </title>
+<script src="js/jquery-2.1.4.min.js"></script>     <!-- Use JQuery from Google CDN -->
+<link href="https://fonts.googleapis.com/css?family=David+Libre" rel="stylesheet">
+<script src="js/user_profile.js"></script>
+
+    <style>
+    	body {
+    		margin: 0;
+    		padding: 0;
+			font-family: 'David Libre', serif;
+			letter-spacing: 0.5px;
+			/* overflow-y: hidden; */
+    		overflow-x: hidden;
+
+    	}
+    	#top {
+    		background: url('images/img8.jpeg') no-repeat;
+    		background-size: 100%;
+    		/*background-color: #009688;*/
+    		height: 100px;
+    		width: 100%;
+    		position: fixed;
+    		padding: 30px;
+    		z-index: 99999;
+    	}
+    	#div_profile_pic {
+    		margin-left: 200px;
+			float: left;
+    		
+    	}
+    	#profile_pic {
+    		/*background: url('profile_img.jpg');*/
+    		height: 100px;
+    		/*background-cover: 100%;*/
+    		width: 100px;
+			border-radius:100%;
+			border: 2px solid white;
+
+    	}
+    	#user_name {
+    		float: left;
+    		margin-left: 60px;
+    		/*background-color: #ffffff;*/
+    		color: #ffffff;
+    		margin-top: 40px;
+    		font-size: 40px;
+    	}
+    	#main {
+    		height: 100%;
+    		width: 100%;
+    		background-color: #cfd8dc;
+    		padding: 20px;
+
+    		/*float: left;*/
+    		/*border: 1px solid red;*/
+    	}
+    	#nav_menu {
+    		/*clear: both;*/
+    		/*height: 99%;*/
+    		width: 18.5%;
+    		margin-top: 180px;
+    		/*border: 1px solid black;*/
+    		float: left;
+    		/*margin: 20px;*/
+    		padding: 20px;
+    		font-size: 15px;
+    		position: fixed;
+
+    	}
+    	#nav_menu ul {
+    		list-style-type: none;
+    		padding: 20px;
+    	}
+    	#nav_menu ul li {
+    		/*background-color: #cfd8dc;*/
+    		margin: 5px;
+    		padding: 14px;
+    	}
+    	#nav_menu ul li:hover {
+    		background-color: #cfd8dc;
+    		border-right: 4px solid #009688;
+    	}
+    	#dummy {
+			width: 100%;
+			height: 50px;
+    		background-color: #ffffff;
+    		/*margin-left: 20%;*/
+    		margin-top: 140px;
+    		/*float: left;*/
+    		position: fixed;
+    		z-index: 9999;
+    		
+    	}
+    	#main_content {
+    		position: absolute;
+    		/* overflow-y: scroll; */
+    		/* z-index: 1; */
+    		height: 100%;
+    		width: 80%;
+    		margin-left: 22%;
+    		margin-top: 200px;
+    		overflow-x: hidden;
+    		/*background-color: #cfd8dc;*/
+    		/*border: 1px solid green;*/
+    		float: right;
+    	}
+    	#ids, #values {
+    		float: left;
+    	}
+  
+ 	  	#ids{
+ 	  		min-width: 150px;
+       	}
+    	#ids p {
+    	}
+    	#values {
+    	}
+    	#values p {
+    	}
+    	#ids p, #values p {
+    		padding: 10px;
+    	}
+		#playlist_img {
+			float: left;
+		}
+		#all_details {
+            padding: 5px;
+            float: left;
+        }
+        #single_playlist {
+            height: 100px;
+            width: 95%;
+            /*padding: 2px;*/
+            /*margin-left: 20px;*/
+            clear: both;
+            border-bottom: 0.5px solid #e0e0e0;
+            border-top: 0.5px solid #e0e0e0;
+            /*background-color: #000000;*/
+        }
+        #playlist_image {
+            padding: 12px;
+        }
+    </style>
+</head>  
+  
+<body>  
+<div id="top">
+		<div id="div_profile_pic"><img id="profile_pic" src='<%=profile_pic_url%>'  onError="this.onerror=null;this.src='images/default.jpg';"  height="100px" width="100px" /></div>
+	<!-- <div id="user_name">Nirali Acharya</div> -->
+	<div id="user_name"><%=user_name%></div>
+</div>
+<div id="main">
+
+	<div id="nav_menu">
+		<nav>
+			<ul>
+				<% if( page === 'profile') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/profile">Profile</a></li>
+				
+				<% if( page === 'current_track') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/current_track">Current playing track</a> </li>
+
+				<% if( page === 'albums') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/albums">Saved albums</a></li>
+
+				<% if( page === 'playlists') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/playlists">Playlists</a></li>
+				
+				<% if( page === 'following') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/following">Following</a></li>
+				
+				<!-- <% if( page === 'followers') { %>
+					<li id="default">
+				<% } else { %>
+					<li>
+				<% } %> <a href="/followers">Followers</a></li> -->
+
+				<li><a href="/logout">Logout</a></li>
+			
+			</ul>
+		</nav>
+	</div>
+	<div id="dummy"></div>
+	<div id="main_content">
+				<% if ( page === 'playlists' ) { %>
+					<div style="height: 100%; width: 85%; float: left; margin-left: 70px;">
+						<% values.forEach(function(str) { %>
+							<div id="single_playlist">
+									<div id="playlist_img">
+										<img src='<%=str.playlist_cover_link %>' height="70" width="70" id="playlist_image" />
+									</div>
+									<div id="all_details">
+										<p id="playlist_name"><a href='<%=str.url%>' target="_blank"><%=str.name%></a></p>
+										<p id="total_tracks">Total tracks: <%=str.total_tracks%> <a href='playlist_detail?id=<%=str.playlist_id%>'>Click to open tracks</a></p>
+									</div>
+									<div style="float: right;margin-top:40px;font-size: 13px;">
+										<a href="javascript:fbShare('<%=str.url%>', 'Fb Share', 520, 350)" 
+										style="background-color: #4267b2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Facebook</a>
+										<script>
+										function fbShare(url, title, winWidth, winHeight) {
+											var winTop = (screen.height / 2) - (winHeight / 2);
+											var winLeft = (screen.width / 2) - (winWidth / 2);
+											window.open('http://www.facebook.com/sharer.php?u=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+										}
+										</script>
+										<a href="javascript:TwitterShare('<%=str.url%>', 'Twitter Share', 520, 350)" 
+										style="background-color: #1da1f2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Twitter</a>
+										<script>
+												function TwitterShare(url, title,  winWidth, winHeight) {
+													var winTop = (screen.height / 2) - (winHeight / 2);
+													var winLeft = (screen.width / 2) - (winWidth / 2);
+													window.open('https://twitter.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+												}
+										</script>
+							
+										<a href="javascript:GoogleShare('<%=str.url%>', 'Google+ Share', 520, 550)" 
+										style="background-color: #dd4e42; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Google+</a>
+										<script>
+												function GoogleShare(url, title, winWidth, winHeight) {
+													var winTop = (screen.height / 2) - (winHeight / 2);
+													var winLeft = (screen.width / 2) - (winWidth / 2);
+													window.open('https://plus.google.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+												}
+										</script>
+									</div>
+							</div>
+						<% }); %>
+					</div>
+					<% } else if ( page === 'playlist_detail' ) { %>
+						<div style="height: 100%; width: 75%; float: left; margin-left: 70px;">
+							<% values.forEach(function(str) { %>
+								<div id="single_playlist">
+										<div id="playlist_img">
+											<img src='<%=str.playlist_cover_link %>' height="70" width="70" id="playlist_image" />
+										</div>
+										<div id="all_details">
+											<p id="playlist_name"><a href='<%=str.url%>' target="_blank"><%=str.name%></a></p>
+										</div>
+										<div style="float: right;margin-top:40px;font-size: 13px;">
+											<a href="javascript:fbShare('<%str.url%>', 'Fb Share', 520, 350)" 
+											style="background-color: #4267b2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Facebook</a>
+											<script>
+											function fbShare(url, title, winWidth, winHeight) {
+												var winTop = (screen.height / 2) - (winHeight / 2);
+												var winLeft = (screen.width / 2) - (winWidth / 2);
+												window.open('http://www.facebook.com/sharer.php?u=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+											}
+											</script>
+											<a href="javascript:TwitterShare('<%str.url%>', 'Twitter Share', 520, 350)" 
+											style="background-color: #1da1f2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Twitter</a>
+											<script>
+													function TwitterShare(url, title,  winWidth, winHeight) {
+														var winTop = (screen.height / 2) - (winHeight / 2);
+														var winLeft = (screen.width / 2) - (winWidth / 2);
+														window.open('https://twitter.com/share?url=' + url , 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+													}
+											</script>
+								
+											<a href="javascript:GoogleShare1('<%str.url%>', 'Google+ Share', 520, 550)" 
+											style="background-color: #dd4e42; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Google+</a>
+											<script>
+													function GoogleShare1(url, title, descr, image, winWidth, winHeight) {
+														var winTop = (screen.height / 2) - (winHeight / 2);
+														var winLeft = (screen.width / 2) - (winWidth / 2);
+														window.open('https://plus.google.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+													}
+											</script>
+										</div>
+									</div>
+							<% }); %>
+						</div>
+					<% } else if ( page === 'albums' ) { %>
+					<div style="height: 100%; width: 85%; float: left; margin-left: 70px;">
+						<% values.forEach(function(str) { %>
+							<div id="single_album" style="clear:both; margin-left: 20px;height: 130px; width: 85%; border-bottom: 0.5px solid #eceff1; border-top: 0.5px solid #eceff1;">
+								<div style="float:left;padding:17px;">
+									<img src='<%=str.album_image%>' height="90" width="90" id="album_image" />
+								</div>
+								<div id="all_details" style="float: left">
+									<p id="album_name"><a href='<%=str.album_url%>' target="_blank"><%=str.album_name%></a></p>
+									<p id="album_artists">Artists: <a href='<%=str.artist_url%>' target="_blank"><%=str.artist_name%></a></p>
+									<p id="album_tracks">Total tracks: <%=str.album_total_tracks%> <a href='album_detail?id=<%=str.album_id%>'>Click to open tracks</a></p>
+								</div>
+								<div style="float: right;margin-top:40px;font-size: 13px;">
+									<a href="javascript:fbShare('<%=str.album_url%>', 'Fb Share', 520, 350)" 
+									style="background-color: #4267b2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Facebook</a>
+									<script>
+									function fbShare(url, title, winWidth, winHeight) {
+										var winTop = (screen.height / 2) - (winHeight / 2);
+										var winLeft = (screen.width / 2) - (winWidth / 2);
+										window.open('http://www.facebook.com/sharer.php?url='+url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+									}
+									</script>
+									<a href="javascript:TwitterShare('<%=str.album_url%>', 'Twitter Share', 520, 350)" 
+									style="background-color: #1da1f2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Twitter</a>
+									<script>
+											function TwitterShare(url, title,  winWidth, winHeight) {
+												var winTop = (screen.height / 2) - (winHeight / 2);
+												var winLeft = (screen.width / 2) - (winWidth / 2);
+												window.open('https://twitter.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+											}
+									</script>
+						
+									<a href="javascript:GoogleShare('<%=str.album_url%>', 'Google+ Share', 520, 550)" 
+									style="background-color: #dd4e42; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Google+</a>
+									<script>
+											function GoogleShare(url, title, winWidth, winHeight) {
+												var winTop = (screen.height / 2) - (winHeight / 2);
+												var winLeft = (screen.width / 2) - (winWidth / 2);
+												window.open('https://plus.google.com/share?url=' +  url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+											}
+									</script>
+								</div>
+						</div>				
+						<% }); %>
+					</div>
+					<% } else if ( page === 'album_detail' ) { %>
+						<div style="height: 100%; width: 85%; float: left; margin-left: 70px;">
+							<% values.forEach(function(str) { %>
+								<div id="single_album" style="clear:both; margin-left: 20px;height: 50px; width: 85%; border-bottom: 0.5px solid #eceff1; border-top: 0.5px solid #eceff1;">
+									<div>
+									<p id="album_name"><%=str.track_number%>. <a href='<%=str.album_url%>' target="_blank"><%=str.album_name%></a></p>
+									</div>
+									<div style="float: right;margin-top:-32px;font-size: 13px;">
+										<a href="javascript:fbShare('<%=str.album_url%>', 'Fb Share', 520, 350)" 
+										style="background-color: #4267b2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Facebook</a>
+										<script>
+										function fbShare(url, title, winWidth, winHeight) {
+											var winTop = (screen.height / 2) - (winHeight / 2);
+											var winLeft = (screen.width / 2) - (winWidth / 2);
+											window.open('http://www.facebook.com/sharer.php?u='+ url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+										}
+										</script>
+										<a href="javascript:TwitterShare('<%=str.album_url%>', 'Twitter Share', 520, 350)" 
+										style="background-color: #1da1f2; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Twitter</a>
+										<script>
+												function TwitterShare(url, title,  winWidth, winHeight) {
+													var winTop = (screen.height / 2) - (winHeight / 2);
+													var winLeft = (screen.width / 2) - (winWidth / 2);
+													window.open('https://twitter.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+												}
+										</script>
+							
+										<a href="javascript:GoogleShare('<%=str.album_url%>', 'Google+ Share', 520, 550)" 
+										style="background-color: #dd4e42; padding:7px; border-radius: 4px; color: white;text-decoration: none;">Share on Google+</a>
+										<script>
+												function GoogleShare(url, title, winWidth, winHeight) {
+													var winTop = (screen.height / 2) - (winHeight / 2);
+													var winLeft = (screen.width / 2) - (winWidth / 2);
+													window.open('https://plus.google.com/share?url=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+												}
+										</script>
+									</div>
+								</div>				
+							<% }); %>
+						</div>
+					<% } else if ( page === 'following' ) { %>
+						<div style="height: 100%; width: 75%; float: left; margin-left: 70px;">
+							<% values.forEach(function(str) { %>
+								<div style="clear:both;height: 100px; width: 75%; border-bottom: 0.5px solid #eceff1; border-top: 0.5px solid #eceff1;">
+										<div style="float:left;margin-top:10px;padding-right: 20px;">
+											<img src='<%=str.artist_profile_image%>' height="70px" width="70px"  style="border-radius: 50%;border: 1px solid black;" />
+										</div>
+										<div style="float:left;padding:10px;">
+											<p><a href='<%=str.artist_url%>' target="_blank"><%=str.artist_name%></a></p>
+											<!-- <p><a href='/get_user_playlist?api_endpoint_url=<%=str.artist_api_url%>'>See Playlists</a></a></p> -->
+										</div>
+								</div>				
+							<% }); %>
+						</div>
+					<% } if( page === 'current_track' ) { %>
+						<% if ( playing_song == 'true') { %>
+							<div style="height: 100%; width: 75%; float: left; margin-left: 70px;">
+								<div style="clear:both; margin-left: 20px;height: 130px; width: 75%; border-bottom: 0.5px solid #eceff1; border-top: 0.5px solid #eceff1;">
+									<div style="float:left;padding:17px;">
+										<img src='<%=album_image%>' height="90" width="90" id="album_image" />
+									</div>
+									<div id="all_details" style="float: left">
+										<p id="album_name"><a href='<%=current_track%>' target="_blank"><%=album_name%></a></p>
+										<p id="album_tracks"></p>
+											<% if ( currently_playing === 'true' ) { %>
+												Playing
+											<% } else { %>
+												Paused
+											<% } %>
+										</p>
+									</div>
+								</div>
+							</div>
+									</div>
+						<% } else if(playing_song == 'false') { %>
+							<p>You are not playing any song currently</p>
+						<% } %>
+				<% } else { %>
+						<div id="ids">
+							<% values.forEach(function(str) { %>
+								<p><%= str.title %></p>
+							<% }); %>
+					<% if( page === 'profile') { %>
+						<p>Spotify profile link:</p>
+					<% } %>
+			</div>	
+			<div id="values">
+					<% values.forEach(function(str) {%>
+						<p><%= str.value %></p>
+					<% }); %>
+			<% } %>			
+					
+					<% if( page === 'profile') {%>
+						<p><a href='<%=spotify_url%>' target="_blank">Click to open</a></p>
+					<% } %>	
+
+			<!-- <a href="javascript:fbShare('Nirali', 'Fb Share', 520, 350)" 
+				style="background-color: #4267b2; padding:10px; border-radius: 4px; color: white;text-decoration: none;">Share on Facebook</a>
+			<script>
+			function fbShare(url, title, winWidth, winHeight) {
+				var winTop = (screen.height / 2) - (winHeight / 2);
+				var winLeft = (screen.width / 2) - (winWidth / 2);
+				window.open('http://www.facebook.com/sharer.php?s=100&p[title]=', 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+			}
+			</script>
+
+			<a href="javascript:TwitterShare('Nirali', 'Twitter Share', 520, 350)" 
+			style="background-color: #1da1f2; padding:10px; border-radius: 4px; color: white;text-decoration: none;">Share on Twitter</a>
+			<script>
+					function TwitterShare(url, title,  winWidth, winHeight) {
+						var winTop = (screen.height / 2) - (winHeight / 2);
+						var winLeft = (screen.width / 2) - (winWidth / 2);
+						window.open('https://twitter.com/share?url=' + title + '&p[url]=' + url , 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+					}
+			</script>
+
+			<a href="javascript:GoogleShare('Nirali', 'Google+ Share', 520, 350)" 
+			style="background-color: #dd4e42; padding:10px; border-radius: 4px; color: white;text-decoration: none;">Share on Google+</a>
+			<script>
+					function GoogleShare(url, title, descr, image, winWidth, winHeight) {
+						var winTop = (screen.height / 2) - (winHeight / 2);
+						var winLeft = (screen.width / 2) - (winWidth / 2);
+						window.open('https://plus.google.com/share?url=' + title + '&p[url]=' + url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width='+winWidth+',height='+winHeight);
+					}
+			</script> -->
+
+</div>
+	
+</div>
+
+</body>  
+  
+</html> 
