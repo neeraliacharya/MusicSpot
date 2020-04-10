@@ -9,3 +9,5 @@ node server.js 3001
 
 Your server will start running on port **3001** or specify the port you want use.
 Open http://localhost:3001/login in your browser
+
+View site: https://nirali-musicspot.herokuapp.com/login
